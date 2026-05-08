@@ -1,5 +1,6 @@
 package com.banco.sistema_bancario_api.controller;
 
+import com.banco.sistema_bancario_api.service.CuentaService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -9,38 +10,25 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/cuentas")
 public class CuentaController {
+    private final CuentaService cuentaService;
 
-//    @GetMapping("/saludo")
-//    public String saludar(){
-//        return "Hola desde Spring Boot";
-//    }
-//    @GetMapping("/banco")
-//    public String bienvenida(){
-//        return "Bienvenido al sistema bancario";
-//    }
-
-    private List<Cuenta> cuentas = new ArrayList<>();
-
-    public CuentaController(){
-
-        cuentas.add(new Cuenta("CC-001", 1500.0));
-        cuentas.add(new Cuenta("CA-001", 2500));
+    public CuentaController (CuentaService cuentaService){
+        this.cuentaService = cuentaService;
     }
+
 
     @GetMapping
     public List<Cuenta> obtenerCuentas(){
-        return cuentas;
+        return cuentaService.obtenerCuenta();
     }
 
     @PostMapping
     public Cuenta crearCuenta(@RequestBody Cuenta cuenta){
-        cuentas.add(cuenta);
-        return cuenta;
+        return cuentaService.crearCuenta(cuenta);
     }
 
     @GetMapping("/saldo-mayor")
     public List<Cuenta>  obtenerCuentasSaldoMayor(){
-        return cuentas.stream().filter(cuenta -> cuenta.getSaldo() > 2000)
-                .toList();
+        return cuentaService.obtenerCuentaSueldoMayor();
     }
 }
