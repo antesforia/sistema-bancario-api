@@ -1,11 +1,13 @@
 package com.banco.sistema_bancario_api.controller;
 
+import com.banco.sistema_bancario_api.dto.CuentaRequestDTO;
+import com.banco.sistema_bancario_api.dto.CuentaResponseDTO;
+import com.banco.sistema_bancario_api.model.Cuenta;
 import com.banco.sistema_bancario_api.service.CuentaService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/cuentas")
@@ -18,17 +20,19 @@ public class CuentaController {
 
 
     @GetMapping
-    public List<Cuenta> obtenerCuentas(){
+    public List<CuentaResponseDTO> obtenerCuentas(){
         return cuentaService.obtenerCuenta();
     }
 
     @PostMapping
-    public Cuenta crearCuenta(@RequestBody Cuenta cuenta){
-        return cuentaService.crearCuenta(cuenta);
+    public CuentaResponseDTO crearCuenta(
+            @Valid @RequestBody CuentaRequestDTO request
+    ){
+        return cuentaService.crearCuenta(request);
     }
 
     @GetMapping("/saldo-mayor")
-    public List<Cuenta>  obtenerCuentasSaldoMayor(){
+    public List<CuentaResponseDTO>  obtenerCuentasSaldoMayor(){
         return cuentaService.obtenerCuentaSueldoMayor();
     }
 }
