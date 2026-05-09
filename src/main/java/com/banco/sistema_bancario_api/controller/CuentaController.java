@@ -35,4 +35,11 @@ public class CuentaController {
     public List<CuentaResponseDTO>  obtenerCuentasSaldoMayor(){
         return cuentaService.obtenerCuentaSueldoMayor();
     }
+
+    @GetMapping("/tipo/{tipoCuenta}")
+    public List<CuentaResponseDTO> obtenerPorTipoCuenta(
+            @PathVariable String tipoCuenta
+    ){
+        return cuentaService.obtenerPorTipoCuenta(tipoCuenta);
+    }
 }

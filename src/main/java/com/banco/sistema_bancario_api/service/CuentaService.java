@@ -53,4 +53,14 @@ public class CuentaService {
                 ))
                 .toList();
     }
+
+    public List<CuentaResponseDTO> obtenerPorTipoCuenta(String tipoCuenta){
+        return cuentaRepository.findByTipoCuenta(tipoCuenta).stream()
+                .map(cuenta -> new CuentaResponseDTO(
+                        cuenta.getId(),
+                        cuenta.getNumeroCuenta(),
+                        cuenta.getSaldo(),
+                        cuenta.getTipoCuenta()
+                )).toList();
+    }
 }
