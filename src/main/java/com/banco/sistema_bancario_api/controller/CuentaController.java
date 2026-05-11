@@ -42,4 +42,19 @@ public class CuentaController {
     ){
         return cuentaService.obtenerPorTipoCuenta(tipoCuenta);
     }
+
+    @PutMapping ("/{id}")
+    public CuentaResponseDTO actualizarCuenta(
+            @PathVariable Long id,
+            @Valid @RequestBody CuentaRequestDTO request
+    ){
+        return cuentaService.actualizarCuenta(id, request);
+    }
+
+    @DeleteMapping ("/{id}")
+    public void eliminarCuenta(
+            @PathVariable Long id
+    ){
+        cuentaService.eliminarCuenta(id);
+    }
 }
